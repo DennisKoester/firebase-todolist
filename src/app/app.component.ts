@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class AppComponent {
 
   todos$: Observable<any>;
-  todos: Array<any>; //! long version. But with some features like alerts or sounds when updated.
+  // / todos: Array<any>; //! long version. But with some features like alerts or sounds when updated.
   todoText: string = '';
 
 
@@ -20,10 +20,10 @@ export class AppComponent {
     const coll = collection(firestore, 'todos');
     this.todos$ = collectionData(coll);
 
-    this.todos$.subscribe((newTodos) => {
-      console.log('Neue Todos sind:', newTodos);
-      this.todos = newTodos;
-    });
+    // this.todos$.subscribe((newTodos) => {
+    //   console.log('Neue Todos sind:', newTodos);
+    //   this.todos = newTodos;
+    // });
   }
 
 
