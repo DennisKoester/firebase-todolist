@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { Firestore, collectionData, collection, setDoc, doc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 
@@ -12,13 +12,23 @@ import { Observable } from 'rxjs';
 export class AppComponent {
 
   todos$: Observable<any>;
-  constructor(firestore: Firestore) {
+  todos: Array<any>; //! long version. But with some features like alerts or sounds when updated.
+  todoText: string = '';
+
+
+  constructor(private firestore: Firestore) {
     const coll = collection(firestore, 'todos');
     this.todos$ = collectionData(coll);
 
     this.todos$.subscribe((newTodos) => {
       console.log('Neue Todos sind:', newTodos);
-    })
+      this.todos = newTodos;
+    });
   }
 
+
+  addTodo() {
+    const coll = collection(this.firestore, 'todos');
+    setDoc(doc(coll), { name: this.todoText });
+  }
 }
